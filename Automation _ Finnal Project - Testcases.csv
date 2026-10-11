@@ -1,0 +1,31 @@
+﻿#,Category,ID,大項目,小項目,前提条件,テスト手順,期待する結果,テスト観点,区分,重要度,関数名,ステータス,結果,確認日,確認者,再確認者,再確認日,備考
+5,GD03.3-TabWindow,GD03.3-01,印刷・ブラウザ機能,別ウィンドウで開く,チケット一覧画面を表示中,1. 「印刷プレビューを開く（新しいウィンドウ）」ボタンを押下する,新しいポップアップウィンドウが開き、印刷プレビュー内容（対象チケット数）が表示される,動作チェック,正常系,中,test_ticket_list_open_print_preview_shows_ticket_count,hoàn thành,OK,2026/10/11,,,,Kiểm tra popup chứa 「対象チケット数：12件」.
+7,GD02.4-SelectOption,GD02.4-02,チケット一覧画面,優先度絞り込み,チケット一覧画面を表示中,1. 優先度プルダウンで「高」を選択する,優先度が「高」のチケットのみ表示される（5件）,動作チェック,正常系,高,test_ticket_list_select_priority_high_shows_only_high,hoàn thành,OK,2026/10/11,,,,Kiểm tra số dòng = 5 và cả 5 dòng đều có độ ưu tiên 「高」.
+8,GD02.3-Fill,GD02.3-001,設定画面,文字数カウンター,設定画面を表示中,1. 署名欄に100文字を超えるテキストを入力しようとする,最大100文字までしか入力できず、カウンター表示が「100/100文字」で止まる,入力チェック,異常系,中,test_settings_type_signature_over_limit_stops_at_max,hoàn thành,OK,2026/10/11,,,,Nhập 101 ký tự ngẫu nhiên; kiểm tra độ dài giá trị = 100 và counter 「100/100文字」.
+9,GD02.1-Click,GD02.1-02,チケット一覧画面,ページネーション（次へ）,1ページの表示件数が10件（デフォルト）,1. 「次へ」ボタンを押下する,2ページ目（残り2件）が表示され、「前へ」ボタンが活性化する,動作チェック,正常系,高,test_ticket_list_click_next_shows_page_two,hoàn thành,OK,2026/10/11,,,,Dữ liệu admin có 12件 → trang 2 còn 2件; kiểm tra thêm nút 「前へ」 được enable.
+11,GD03.1-Dialog,GD03.1-01,チケット一覧画面,チケット削除（確認ダイアログ→OK）,チケット一覧画面を表示中,"1. 任意の行の「削除」ボタンを押下する
+2. 確認ダイアログ（confirm）で「OK」を押下する",該当行が一覧から削除され、トースト通知「チケットを削除しました。」が表示される,動作チェック,正常系,高,test_ticket_list_delete_accept_confirm_removes_row,hoàn thành,OK,2026/10/11,,,,「任意の行」 cố định là dòng 「ログインできない」.
+13,GD02.1-Click,GD02.1-04,チケット一覧画面,ソート（降順）,「作成日」列見出しを1回押下済み,1. 「作成日」列見出しをもう一度押下する,作成日の降順に並び替わり、ソートアイコンが下向き矢印になる,動作チェック,正常系,中,test_ticket_list_click_created_header_twice_sorts_descending,hoàn thành,OK,2026/10/11,,,,Bước 前提条件 (click 「作成日」 lần 1) được thực hiện trong test. Kiểm tra icon arrow_downward và thứ tự ngày giảm dần.
+14,GD01-Navigation,GD01_002,ログイン画面,画面表示,ブラウザでページを開く,1. ページを開く,ログイン画面が表示される（ID・パスワード入力欄、ログインボタン）,全画面チェック,正常系,高,test_login_screen_open_page_shows_login_form,hoàn thành,OK,2026/10/11,,,,"Kiểm tra hiển thị ô ID, ô パスワード và nút ログイン."
+15,GD03.1-Dialog,GD03.1-02,チケット一覧画面,担当者再割り当て（prompt）,チケット一覧画面を表示中,"1. 「担当者を再割り当てする」ボタンを押下する
+2. promptダイアログに任意の名前を入力してOKを押下する",入力した名前が画面上の再割り当て結果として反映される,動作チェック,正常系,中,test_ticket_list_reassign_prompt_shows_new_assignee,hoàn thành,OK,2026/10/11,,,,Tên nhập: 「山田」 → kết quả 「新しい担当者「山田」に再割り当てしました。」
+30,GD02.5-Hover,GD02.5-001,チケット一覧画面,ツールチップ表示,チケット一覧画面を表示中,1. 「作成日」列見出し横のヘルプアイコン（?）にカーソルを合わせる,「チケットが作成された日付を表示します」という説明テキストが表示される,デザイン,正常系,低,test_ticket_list_hover_created_help_icon_shows_tooltip,hoàn thành,OK,2026/10/11,,,,
+35,GD02.2-Check,GD02.2-001,チケット一覧画面,全選択チェックボックス,チケット一覧画面を表示中,1. テーブルヘッダーの全選択チェックボックスを押下する,表示中の全行のチェックボックスがチェックされ、一括操作バーが表示される,動作チェック,正常系,高,test_ticket_list_check_select_all_checks_all_rows,hoàn thành,OK,2026/10/11,,,,Kiểm tra đủ 10 dòng trên trang 1 được check (DEFAULT_PAGE_SIZE=10).
+39,GD02.7-FileUpload,GD02.7-01,チケット詳細ダイアログ,ファイルアップロード（正常）,詳細ダイアログを表示中,1. ドロップゾーンに.pngファイル（1MB程度）をアップロードする,ファイル名とサイズがプレビュー表示され、削除アイコンが表示される,動作チェック,正常系,高,test_ticket_detail_upload_png_shows_preview,hoàn thành,OK,2026/10/11,,,,File tạo trong code: sample.png (1024KB) → hiển thị 「sample.png（1024KB）」. Input file bị display:none nên dùng set_input_files.
+44,GD02.8-Assertion,GD02.8-04,ログイン画面,異常系ログイン,ログイン画面を表示中,"1. IDに「admin」を入力する
+2. パスワードに「wrongpass」を入力する
+3. 「ログイン」ボタンを押下する",「IDまたはパスワードが正しくありません。」というエラーメッセージが表示され、画面遷移しない,テキストチェック,異常系,高,test_login_wrong_password_shows_error,hoàn thành,OK,2026/10/11,,,,Kiểm tra thêm màn hình chính (header) không hiển thị.
+51,GD02.8-Assertion,GD02.8-07,デフォルトアカウント（guestユーザー）,チケット一覧のデフォルト状態,guestでログイン済み,1. チケット一覧画面の表示を確認する,チケットが0件で「登録されているチケットはありません。」というメッセージと「＋新規チケット作成」ボタンが表示される。ページネーションは表示されない,全画面チェック,正常系,高,test_ticket_list_guest_default_shows_empty_state,hoàn thành,OK,2026/10/11,,,,Kiểm tra cả phân trang trên và dưới đều bị ẩn (không phải disabled).
+55,GD02.1-Click,GD02.1-16,チケット一覧画面,ケバブメニュー操作,チケット一覧画面を表示中,"1. 任意の行の「⋮」ボタンを押下する
+2. 表示されたメニューから「完了にする」を選択する",メニューが閉じ、該当行のステータスが「完了」に変わる。トースト通知が表示される,動作チェック,正常系,高,test_ticket_list_kebab_complete_changes_status_to_done,hoàn thành,OK,2026/10/11,,,,「任意の行」 cố định là dòng 「ログインできない」. Toast: 「ステータスを更新しました。」
+63,GD01-Navigation,GD01_004,通知画面,遷移画面,admin/admin123でログイン済み,1. ヘッダーの「通知」タブを押下する,通知一覧画面に遷移し、3件の通知が表示される,全画面チェック,正常系,高,test_header_click_notification_tab_shows_three_notifications,hoàn thành,OK,2026/10/11,,,,Tiền điều kiện: fixture header tự đăng nhập bằng admin/admin123 (lấy từ .env).
+64,GD03.2-Iframe,GD03.2-01,埋め込みプレビュー・外部リンク,iframe内操作,チケット一覧画面を表示中,"1. 埋め込みプレビュー内のプルダウンでステータスを選択する
+2. 埋め込みプレビュー内の「適用」ボタンを押下する",iframe内にのみ結果メッセージが表示され、親ページの一覧には影響しない,動作チェック,正常系,中,test_preview_iframe_apply_status_does_not_affect_parent,hoàn thành,OK,2026/10/11,,,,Chọn status 「完了」. So sánh toàn bộ text các dòng của danh sách cha trước/sau khi apply.
+66,GD02.3-Fill,GD02.3-007,ログイン画面,正常系ログイン,ログイン画面を表示中,"1. IDに「admin」を入力する
+2. パスワードに「admin123」を入力する
+3. 「ログイン」ボタンを押下する",チケット一覧画面に遷移し、ヘッダーにログインユーザー名が表示される,全画面チェック,正常系,高,test_login_valid_admin_shows_ticket_list,hoàn thành,OK,2026/10/11,,,,Kiểm tra tên user ở header = 「田中 太郎（管理者）」. Tài khoản lấy từ .env.
+72,GD02.7-FileUpload,GD02.7-04,チケット詳細ダイアログ,ファイルアップロード（拡張子エラー）,詳細ダイアログを表示中,1. ドロップゾーンに.exeファイルをアップロードする,「対応していないファイル形式です。」というエラーが表示され、プレビューされない,入力チェック,異常系,中,test_ticket_detail_upload_exe_shows_type_error,hoàn thành,OK,2026/10/11,,,,File tạo trong code: sample.exe (1KB). Kiểm tra vùng preview bị ẩn.
+74,GD03.3-TabWindow,GD03.3-04,埋め込みプレビュー・外部リンク,別タブで開く,チケット一覧画面を表示中,1. 「外部マニュアルを開く（新しいタブ）」ボタンを押下する,新しいタブが開き、外部サイトが表示される,動作チェック,正常系,中,test_ticket_list_open_manual_opens_new_tab,hoàn thành,OK,2026/10/11,,,,Kiểm tra URL tab mới bắt đầu bằng https://playwright.dev.
+82,GD02.6-Keyboard,GD02.6-02,チケット一覧画面,キーワード検索（Enterキー）,チケット一覧画面を表示中,"1. 検索欄に「ログイン」と入力する
+2. Enterキーを押下する",「検索」ボタン押下時と同じ結果が表示される,動作チェック,正常系,中,test_ticket_list_search_with_enter_shows_matching_tickets,hoàn thành,OK,2026/10/11,,,,"Code không so sánh trực tiếp với kết quả khi bấm nút 「検索」, mà so với kết quả mong đợi cố định: 1件 「ログインできない」."
+88,GD03.1-Dialog,GD03.1-06,一括操作・トースト通知,一括対応完了（承諾）,一括対応完了の確認ダイアログを表示中,1. 確認ダイアログで「OK」を押下する,選択した全件のステータスが「完了」に変わり、件数を通知するalertダイアログが表示される,動作チェック,正常系,高,test_ticket_list_bulk_complete_accept_changes_status_to_done,hoàn thành,OK,2026/10/11,,,,"Bước 前提条件: check 2 dòng 「ログインできない」, 「パスワード再設定ができない」. Alert: 「2件のチケットを対応完了にしました。」"
