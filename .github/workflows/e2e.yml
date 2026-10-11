@@ -9,7 +9,7 @@ on:
 
 jobs:
   e2e:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       APP_URL: ${{ secrets.APP_URL }}
       ADMIN_ID: ${{ secrets.ADMIN_ID }}
@@ -18,9 +18,9 @@ jobs:
       GUEST_PASSWORD: ${{ secrets.GUEST_PASSWORD }}
       HEADED: "false"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -41,7 +41,7 @@ jobs:
 
       - name: Upload Allure report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: allure-report
           path: allure-report
