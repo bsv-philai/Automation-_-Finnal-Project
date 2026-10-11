@@ -1,0 +1,56 @@
+,URL website finnal,https://bsv-nhungnguyen.github.io/bai_tap_17082026.html ,
+,,,
+No,Hạng mục,Nội dung,Ghi chú
+1,Tổng quan,"Bài tập này là bài tập CÁ NHÂN, không cần chia nhóm/cặp.
+Mỗi người tự thao tác trên trang ""Bài tập 17.08.2026"" (bai_tap_17082026.html). 
+Thời gian hoàn thành dự kiến sẽ là 3 tuần, sau đó thì Nhung sẽ review feedback trong 1 tuần. ",
+2,Cách làm & cách ghi kết quả,"1. Chọn case muốn làm từ bộ testcase
+2. Viết script tự động (Playwright...) và chạy thử thực tế để xác nhận
+3. Điền tên hàm đã viết vào cột ""関数名""
+4. Điền tiến độ (chưa làm / đang làm / hoàn thành) vào cột ""スターテス""
+5. Điền OK/NG vào cột ""結果"" (nếu NG thì tìm hiểu nguyên nhân trước khi ghi)
+6. Điền ngày thực hiện vào ""確認日"", tên mình vào ""確認者""
+7. Nếu NG thì ghi rõ các bước tái hiện, kết quả mong đợi và kết quả thực tế vào ""備考""",
+3,Thông tin môi trường,"Trang bài tập: bai_tap_17082026.html
+Bộ testcase: bai_tap_17082026_testcases.tsv
+Tài khoản 1 (có sẵn data): ID=admin / Mật khẩu=admin123
+Tài khoản 2 (không có data - dùng để kiểm tra trạng thái mặc định): ID=guest / Mật khẩu=guest123
+Xem cột ""前提条件"" của từng case để biết cần dùng tài khoản nào","Nhóm case ""デフォルトアカウント（guestユーザー）"" bắt buộc dùng tài khoản guest."
+4,Cách viết locator (thứ tự ưu tiên),"1. role + tên hiển thị (get_by_role(""button"", name=""...""))
+2. label / placeholder (get_by_label / get_by_placeholder)
+3. id (page.locator(""#...""))
+4. class (đặt theo kiểu BEM, ví dụ: .btn-detail, .row-checkbox)
+Trang không có data-testid, nên phải theo đúng thứ tự ưu tiên trên.
+Tránh dùng XPath theo vị trí (div[3]/div[2]...) vì chỉ cần đổi layout là gãy ngay.",Đây là bài tập mô phỏng dự án thực tế không có data-testid.
+5,Bẫy cần lưu ý #1 (bảng / nút bấm),"Có nhiều nút cùng chữ xuất hiện trên trang (mỗi dòng đều có nút ""詳細"" ""削除"";
+nút ""前へ"" ""次へ"" xuất hiện ở cả trên và dưới bảng). Phải scope theo dòng/container
+khi viết locator.
+Checkbox thật (thẻ <input>) bị set opacity:0 và nằm đè dưới icon (.cb-box).
+Click vào icon sẽ không có tác dụng - phải check()/click() trực tiếp vào input.",
+6,Bẫy cần lưu ý #2 (file / bất đồng bộ),"Input file đính kèm bị ẩn (display:none). Phải dùng set_input_files - cách click để
+mở hộp thoại chọn file của OS sẽ KHÔNG tự động hoá được.
+Tiêu đề cột ""作成日"" có icon sort (arrow_upward/arrow_downward) và tooltip bị lẫn vào
+text, không nên assert trực tiếp theo innerText.
+Màn ""統計"" (thống kê) sẽ KHÔNG tự cập nhật cho đến khi bấm nút ""再集計する""
+(hành vi bất đồng bộ có chủ đích) - chỉ chuyển tab thôi thì số liệu vẫn cũ.",
+7,Bẫy cần lưu ý #3 (quản lý trạng thái),"Khi đổi filter (mức độ ưu tiên, từ khoá tìm kiếm...), các checkbox đang được chọn sẽ
+tự động bị bỏ chọn.
+Phân trang (前へ/次へ/số trang) sẽ bị ẩn hoàn toàn (không phải disable) khi dữ liệu chỉ
+có 1 trang trở xuống - nên assert theo kiểu ""phần tử không tồn tại"" chứ không phải
+""nút bị disable"".
+Mỗi lần đăng nhập, dữ liệu được khởi tạo lại theo từng tài khoản (đăng nhập lại
+admin ⇄ guest thì filter và trạng thái chọn cũng bị reset).",
+8,Pattern get-or-create ở màn thông báo (通知),"Màn thông báo mô phỏng pattern hay gặp trong thực tế: ""tìm kiếm, nếu không thấy thì
+tạo mới"".
+1. Tìm kiếm tiêu đề trong danh sách thông báo
+2. Nếu không tìm thấy, bấm nút ""＋通知を作成する"" (nằm ngay dưới message ""không tìm
+   thấy kết quả"") để tạo mới
+3. Nếu đã tìm thấy thì không cần làm gì thêm
+Hãy thử gom toàn bộ luồng này thành 1 hàm (ví dụ: ensure_notification_exists).","Đây là cách luyện tư duy ""đảm bảo điều kiện tiền đề"" (setup) hay dùng trong automation."
+9,Nộp bài & báo cáo,"1. Tạo 1 MR ở nhánh develop và assignee cho Nhung, trong quá trình làm khuyến khích mn làm tới đâu thì tạo commit, hoặc branch tới đó. 
+2. Nếu được nên tích hợp Allure report vào source 
+3. Tạo CICD để run thẳng được ở github ","Tạo 1 MR ở nhánh develop và assignee cho Nhung, trong quá trình làm khuyến khích mn làm tới đâu thì tạo commit, hoặc branch tới đó. "
+10,Câu hỏi & báo lỗi,"Nếu có thắc mắc về rule hoặc testcase, để lại comment trên sheet này hoặc hỏi qua
+(điền kênh liên hệ vào đây).
+Một số hành vi tưởng là bug nhưng thực chất là chủ đích của trang luyện tập này -
+hãy đọc kỹ rule trước khi báo lỗi.",
