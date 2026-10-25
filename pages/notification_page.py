@@ -1,3 +1,4 @@
+import allure
 from playwright.sync_api import Page, expect
 
 from constants.locators import NotificationLocators as locators
@@ -10,6 +11,7 @@ class NotificationPage(BasePage):
         self.panel = page.locator(locators.PANEL)
         self.rows = page.locator(locators.ROWS)
 
+    @allure.step("Expect {count} notification rows")
     def expect_row_count(self, count: int) -> None:
         self.expect_visible(self.panel)
         expect(self.rows).to_have_count(count)

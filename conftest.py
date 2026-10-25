@@ -43,6 +43,31 @@ def _test_outcome(node: pytest.Item) -> str:
     return report.outcome
 
 
+def capture_evidence_screenshot(page: Page, test_name: str, outcome: str) -> None:
+    """Chụp 1 screenshot khi kết thúc testcase và đính kèm Allure làm evidence."""
+    if outcome == "skipped" or page.is_closed():
+        return
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    SCREENSHOT_DIR.mkdir(exist_ok=True)
+    screenshot_path = SCREENSHOT_DIR / f"{test_name}_{outcome}_{timestamp}.png"
+
+    try:
+        with allure.step(f"Capture evidence screenshot ({outcome})"):
+            page.screenshot(path=str(screenshot_path), full_page=True)
+            allure.attach.file(
+                str(screenshot_path),
+                name=f"screenshot_{outcome}",
+                attachment_type=allure.attachment_type.PNG,
+            )
+    except Exception as exc:
+        allure.attach(
+            str(exc),
+            name="screenshot_error",
+            attachment_type=allure.attachment_type.TEXT,
+        )
+
+
 @pytest.fixture(scope="session")
 def browser_type_launch_args(browser_type_launch_args: dict) -> dict:
     return {**browser_type_launch_args, "headless": not HEADED}
@@ -56,14 +81,7 @@ def app_page(request: pytest.FixtureRequest, browser: Browser):
     yield page
 
     outcome = _test_outcome(request.node)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    SCREENSHOT_DIR.mkdir(exist_ok=True)
-    screenshot_path = SCREENSHOT_DIR / f"{request.node.name}_{outcome}_{timestamp}.png"
-    if outcome != "skipped":
-        page.screenshot(path=str(screenshot_path), full_page=True)
-        allure.attach.file(
-            str(screenshot_path), name=f"screenshot_{outcome}", attachment_type=allure.attachment_type.PNG
-        )
+    capture_evidence_screenshot(page, request.node.name, outcome)
 
     # Gồm cả video của popup / tab mới mở trong test
     videos = [opened.video for opened in context.pages if opened.video]

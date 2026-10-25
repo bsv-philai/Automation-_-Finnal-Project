@@ -8,7 +8,18 @@ if [ -z "$KEYWORDS" ]; then
   read -r -p "Nhập keyword (VD: GD02.1-02, GD03.1-01), Enter để chạy tất cả: " KEYWORDS
 fi
 
-if [ -d venv/Scripts ]; then PYTHON=venv/Scripts/python; elif [ -d venv/bin ]; then PYTHON=venv/bin/python; else PYTHON=python; fi
+if [ -x venv/Scripts/python ]; then
+  PYTHON=venv/Scripts/python
+elif [ -x venv/bin/python ]; then
+  PYTHON=venv/bin/python
+elif command -v python3 >/dev/null 2>&1; then
+  PYTHON=python3
+elif command -v python >/dev/null 2>&1; then
+  PYTHON=python
+else
+  echo "Không tìm thấy python3. Tạo venv: python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt"
+  exit 1
+fi
 
 rm -rf allure-results allure-report
 
@@ -38,6 +49,11 @@ EOF
     exit 1
   fi
   "$PYTHON" -m pytest -k "$EXPRESSION"
+fi
+
+if [ ! -d allure-results ]; then
+  echo "pytest không tạo allure-results. Kiểm tra Python/pytest rồi chạy lại."
+  exit 1
 fi
 
 allure generate allure-results --clean -o allure-report && allure open allure-report
